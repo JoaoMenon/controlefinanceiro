@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finanças</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<section id="login" hidden>
+  <form id="loginForm" class="card">
+    <h1>Finanças</h1>
+    <label>E-mail <input type="email" id="email" required autocomplete="username"></label>
+    <label>Senha <input type="password" id="password" required autocomplete="current-password"></label>
+    <p id="loginError" class="error"></p>
+    <button class="primary">Entrar</button>
+  </form>
+</section>
+
+<main id="app" hidden>
+  <header>
+    <div class="months">
+      <button id="prev" aria-label="Mês anterior">‹</button>
+      <strong id="monthLabel"></strong>
+      <button id="next" aria-label="Próximo mês">›</button>
+    </div>
+    <div>
+      <button id="catBtn" class="link">Categorias</button>
+      <button id="logout" class="link">Sair</button>
+    </div>
+  </header>
+
+  <div class="summary">
+    <div class="card"><span>Receitas</span><b id="income" class="pos"></b></div>
+    <div class="card"><span>Despesas</span><b id="expense" class="neg"></b></div>
+    <div class="card"><span>Saldo</span><b id="balance"></b></div>
+  </div>
+
+  <ul id="list"></ul>
+  <button id="addBtn" class="fab" aria-label="Novo lançamento">+</button>
+</main>
+
+<dialog id="txDialog">
+  <form id="txForm">
+    <h2 id="txTitle">Novo lançamento</h2>
+    <label>Tipo
+      <select id="type"><option value="expense">Despesa</option><option value="income">Receita</option></select>
+    </label>
+    <label><span id="amountLabel">Valor (R$)</span> <input id="amount" type="number" step="0.01" min="0.01" inputmode="decimal" required></label>
+    <label>Descrição <input id="description" required></label>
+    <label>Categoria <select id="category"></select></label>
+    <label>Data <input id="date" type="date" required></label>
+    <label>Forma de pagamento
+      <select id="payment"><option value="card">Cartão</option><option value="pix">Pix</option><option value="cash">Dinheiro</option><option value="other">Outro</option></select>
+    </label>
+    <div id="repeatBox">
+      <label>Repetição
+        <select id="repeat">
+          <option value="once">Única</option>
+          <option value="installments">Parcelada</option>
+          <option value="recurring">Recorrente (12 meses)</option>
+        </select>
+      </label>
+      <label id="countBox" hidden>Nº de parcelas <input id="count" type="number" min="2" max="60" value="2"></label>
+    </div>
+    <div class="actions">
+      <button type="button" id="delBtn" class="danger" hidden>Excluir</button>
+      <button type="button" id="cancelTx">Cancelar</button>
+      <button class="primary">Salvar</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="catDialog">
+  <h2>Categorias</h2>
+  <ul id="catList"></ul>
+  <form id="catForm" class="row">
+    <input id="catName" placeholder="Nova categoria" required>
+    <button class="primary">Adicionar</button>
+  </form>
+  <div class="actions"><button type="button" id="closeCat">Fechar</button></div>
+</dialog>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
